@@ -35,7 +35,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./app  # Diretório onde está o código do app
+          context: ./ASCAN-app/app  # Diretório onde está o código do app
           file: ./app/Dockerfile  # Caminho para o Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app:latest
