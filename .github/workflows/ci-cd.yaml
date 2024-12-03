@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./ASCAN-app/app  # Diretório onde está o código do app
-          file: ./app/Dockerfile  # Caminho para o Dockerfile
+          file: ./ASCAN-app/Dockerfile  # Caminho para o Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app:latest
 
