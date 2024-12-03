@@ -54,12 +54,11 @@ jobs:
       - name: Set up Kubernetes cluster
         uses: azure/k8s-set-context@v3
         with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
+          kubeconfig: $HOME/.kube/config
 
       # 3. Faz o deploy usando Helm
       - name: Deploy with Helm
         run: |
-          helm upgrade --install app ./helm \
+          helm upgrade --install app ./ASCAN-app/helm \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/app \
             --set image.tag=latest
