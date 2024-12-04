@@ -3,18 +3,13 @@ variable "resgroup_name" {
   default = "ASCAN" 
 }
 
-variable "storage_account" {
-  type    = string
-  default = "autopilotstoragetf" 
-}
-
 variable "default_location" {
   type    = string
-  default = "eastus2" 
+  default = "westus2" 
 }
 
 variable "subscription_id" {
   description = "The Azure Subscription ID"
   type        = string
-  default     = "fdf75646-7704-44d4-b49c-4562d51503c7"
+  default     = "b30f942d-212a-4a7f-8421-437f06604c7a"
 }
