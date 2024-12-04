@@ -1,1 +1,1 @@
-flask==2.2.5
+colorama==0.4.6
