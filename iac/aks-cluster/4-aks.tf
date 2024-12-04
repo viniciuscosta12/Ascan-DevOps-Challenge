@@ -1,5 +1,5 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                = "${local.env}-${local.eks_name}"
+  name                = "${local.env}-${local.aks_name}"
   location            = var.default_location
   resource_group_name = var.resgroup_name
   dns_prefix          = "ascanaks1"
@@ -7,7 +7,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   kubernetes_version        = "1.29.9"
   automatic_upgrade_channel = "stable"
   private_cluster_enabled   = false
-  node_resource_group       = "${local.resource_group_name}-${local.env}-${local.eks_name}"
+  node_resource_group       = "${local.resource_group_name}-${local.env}-${local.aks_name}"
 
   sku_tier = "Free"
 
