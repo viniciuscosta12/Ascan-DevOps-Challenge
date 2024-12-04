@@ -61,4 +61,4 @@ jobs:
         run: |
           helm upgrade --install app ./ASCAN-app/helm \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/app \
-            --set image.tag=latest
+            --set image.tag=latest -n app
