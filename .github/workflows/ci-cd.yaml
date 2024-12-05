@@ -51,7 +51,7 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
-      - name: Deploy with kubectl
+      - name: Deploy with Helm
         run: |
           helm upgrade --install app ./iac/addons/app/helm \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/app \
@@ -63,6 +63,6 @@ jobs:
           kubectl version --client \
           mkdir .kube \
           echo "Salvando kubeconfig no arquivo..." \
-          echo "$KUBECONFIG" | base64 -d > $KUBECONFIG_FILE \
+          echo ${{ secrets.DOCKER_USERNAME }} | base64 -d > $KUBECONFIG_FILE \
           export KUBECONFIG=$KUBECONFIG_FILE \
           kubectl rollout restart deployment app-deployment -n app
