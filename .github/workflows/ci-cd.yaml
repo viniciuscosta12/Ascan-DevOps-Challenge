@@ -60,12 +60,15 @@ jobs:
       - name: Update image
         run: |
           sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gawk
+          echo "step 1"
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          echo "step 2"
           install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          echo "step 3"
           kubectl version --client
           mkdir .kube
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
-          export KUBECONFIG=$HOME/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > $KUBECONFIG_FILE
+          export KUBECONFIG=$KUBECONFIG_FILE
           echo "Reiniciando o Deployment para atualizar a imagem..."
           kubectl rollout restart deployment app-deployment -n app
           
