@@ -58,14 +58,14 @@ jobs:
             --set image.tag=latest -n app \
           
       - name: Update image
-        run: |    
-          apt-get update \
-          apt-get install -y apt-transport-https ca-certificates curl gawk \
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
-          install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
-          kubectl version --client \
-          mkdir .kube \
-          echo "Salvando kubeconfig no arquivo..." \
-          echo ${{ secrets.DOCKER_USERNAME }} | base64 -d > $KUBECONFIG_FILE \
-          export KUBECONFIG=$KUBECONFIG_FILE \
+        run: |
+          apt-get update && apt-get install -y apt-transport-https ca-certificates curl gawk
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          kubectl version --client
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          echo "Reiniciando o Deployment para atualizar a imagem..."
           kubectl rollout restart deployment app-deployment -n app
+          
