@@ -55,4 +55,18 @@ jobs:
         run: |
           helm upgrade --install app ./iac/addons/app/helm \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/app \
-            --set image.tag=latest -n app
+            --set image.tag=latest -n app \
+          
+      - name: Update image
+        run: |
+          sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gawk
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          kubectl version --client
+          mkdir -p $HOME/.kube
+          KUBECONFIG_FILE="$HOME/.kube/config"
+          echo "${{ secrets.KUBECONFIG }}" > $KUBECONFIG_FILE
+          export KUBECONFIG=$KUBECONFIG_FILE
+          echo "Reiniciando o Deployment para atualizar a imagem..."
+          kubectl rollout restart deployment app-deployment -n app
+          
