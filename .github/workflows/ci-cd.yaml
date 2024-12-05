@@ -63,7 +63,8 @@ jobs:
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           kubectl version --client
-          mkdir .kube
+          mkdir -p $HOME/.kube
+          KUBECONFIG_FILE="$HOME/.kube/config"
           echo "${{ secrets.KUBECONFIG }}" | base64 -d > $KUBECONFIG_FILE
           export KUBECONFIG=$KUBECONFIG_FILE
           echo "Reiniciando o Deployment para atualizar a imagem..."
