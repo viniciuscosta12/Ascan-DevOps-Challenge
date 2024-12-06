@@ -29,6 +29,10 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.1.0"
     }
+        kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
+    }
   }
 }
 
@@ -49,4 +53,9 @@ resource "helm_release" "kube-prometheus-stack" {
     values = [
     "${file("values.yaml")}"
   ]
+}
+
+resource "kubectl_manifest" "secret" {
+  yaml_body = file("${path.module}/secret.yaml")
+  depends_on = [ helm_release.kube-prometheus-stack ]
 }

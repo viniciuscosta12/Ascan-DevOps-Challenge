@@ -36,6 +36,8 @@ The developed website is a simple "Hello World" application. The infrastructure 
 - Terraform installed on your local machine.
 - An Azure account with necessary permissions to create resources.
 - Azure CLI installed and configured with your Azure account.
+- Add the environment variable `TF_VAR_subscription_id` with your Azure Subscription ID.
+>Note: Create the environment variable with TF_VAR for terraform
 
 ### Create a cluster with terraform
 
@@ -108,6 +110,9 @@ kubectl get all -n app
 #### [Kube Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus)
 
 Installs the kube-prometheus-stack, a collection of Kubernetes manifests, [Grafana](http://grafana.com/) dashboards, [Prometheus rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/) and  combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with [Prometheus](https://prometheus.io/) using the Prometheus Operator.
+
+- In the secret.yaml file you can change the admin password before deploy kube-prometheus-stack.
+>Note: Use encode base64
 
 Initialize Terraform in your project directory:
 ````sh

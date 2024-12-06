@@ -75,7 +75,7 @@ HTML_TEMPLATE = """
 <body>
     <div class="container" id="main-container">
         <div class="hello-text" id="hello-text" style="color: {{ color }};">
-            Hello, World! v2 <span class="emoji">🌍</span>
+            Hello, World! v1 <span class="emoji">🌍</span>
         </div>
         <div class="interactive-buttons">
             <button class="btn" style="background-color: #4CAF50; color: white;" onclick="changeColor()">Change Color</button>
