@@ -35,7 +35,6 @@ jobs:
         id: get_tag
         run: |
           set -e
-          # Obtém a tag mais recente ou define uma padrão (0.1.0)
           TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.1.0")
           echo "Latest tag: $TAG"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
@@ -44,7 +43,6 @@ jobs:
         id: bump_version
         run: |
           set -e
-          # Recupera a tag da etapa anterior
           TAG=${{ steps.get_tag.outputs.tag }}
       
           # Remove o 'v' da versão (v1.2.3 -> 1.2.3)
